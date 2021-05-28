@@ -1,24 +1,57 @@
-import logo from './logo.svg';
+// import React, { useState, use} from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+
 import './App.css';
 
 function App() {
+
+  const [advice, setAdvice] = useState("")
+  const [count, setCount] = useState(0)
+  
+  // const fetchQuote = async() =>{
+  //   const res = await axios.get('https://api.adviceslip.com/advice')
+
+  //   const ad = (res.data.slip.advice);
+  //   setAdvice(ad);
+  // }
+
+  // useEffect(async() => {
+  //   const res = await axios.get('https://api.adviceslip.com/advice')
+  //   const ad = (res.data.slip.advice);
+  //   setAdvice(ad);
+
+  // }, [count, advice])
+ 
+  useEffect(()=>{
+    async function fetchData()
+    {
+      const res = await axios.get('https://api.adviceslip.com/advice')
+      const ad = (res.data.slip.advice);
+      setAdvice(ad);      
+    }
+    fetchData();
+  }, [advice, count]);
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+
+    
+
+    <div className="app">
+
+      <div className="card">
+        <h3 className="heading">
+        {advice}
+        </h3>
+        <button className="button" onClick={ () => setCount(count +1)}> 
+          <span>
+            Generate </span>
+        </button>
+      </div>
     </div>
+
   );
 }
 
